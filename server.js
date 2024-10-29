@@ -1,10 +1,15 @@
 const express = require('express')
+const cors = require('cors')
+const dotenv = require('dotenv')
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
-const app = express()
+dotenv.config()
 
 // 目标服务器地址
-const target = 'https://www.example.com' // 将这个地址替换为你想要转发请求的正式地址
+const target = process.env.TARGET_URL
+
+const app = express()
+app.use(cors())
 
 app.use((req, res, next) => {
   console.log('--- New Request ---')
